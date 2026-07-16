@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { Suspense, useState } from "react";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
@@ -23,7 +23,18 @@ const schema = z
   });
 type FormValues = z.infer<typeof schema>;
 
+// useSearchParams() forces Next.js to bail out of static prerendering for
+// whatever reads it, so that part must sit inside its own <Suspense>
+// boundary — otherwise `next build` fails even though `next dev` works fine.
 export default function RegisterPage() {
+  return (
+    <Suspense fallback={null}>
+      <RegisterForm />
+    </Suspense>
+  );
+}
+
+function RegisterForm() {
   const searchParams = useSearchParams();
   const inviteToken = searchParams.get("invite");
   const [serverError, setServerError] = useState<string | null>(null);
