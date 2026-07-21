@@ -59,3 +59,5 @@ actions/approvals.ts    -- Server Actions للموافقة والدعوة
 actions/clients.ts      -- Server Actions لإنشاء العملاء وجهات الاتصال وسجل النشاط
 components/             -- عناصر واجهة مشتركة (AuthShell بهوية Vantage البصرية)
 ```
+
+
